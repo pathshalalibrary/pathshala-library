@@ -141,7 +141,10 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Header Section -->
+    <div class="fixed inset-0 z-0">
+        <canvas id="particle-canvas" class="absolute inset-0 opacity-0"></canvas>
+    </div>
+
     <header class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 transition-all duration-300" id="navbar">
         <div class="container mx-auto flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
@@ -154,16 +157,9 @@
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
+    <main class="relative z-10">
         <section class="h-screen flex flex-col p-4 relative" id="hero">
             
-             <!-- Background elements -->
-            <div class="absolute inset-0 z-0">
-                <canvas id="particle-canvas" class="absolute inset-0 opacity-0"></canvas>
-            </div>
-            
-            <!-- Structural Wrapper -->
             <div class="flex flex-col h-full w-full">
                 <!-- Top half for 3D animation -->
                 <div id="three-canvas-container" class="relative w-full flex-1 pointer-events-none z-10"></div>
@@ -181,9 +177,34 @@
                 </div>
             </div>
 
-            <div class="absolute bottom-10 z-20 text-white opacity-0 w-full flex flex-col items-center" id="scroll-indicator">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-                <span class="mt-2 block">Scroll to explore</span>
+        </section>
+
+        <!-- Glimpse Inside Section -->
+        <section id="glimpse" class="py-20 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-6xl font-black feature-text mb-2">A Glimpse Inside</h2>
+                    <p class="text-slate-400 text-lg">Experience the environment built for focus.</p>
+                </div>
+        
+                <div class="grid grid-cols-3 gap-4">
+    
+                    <div class="col-span-2 rounded-2xl overflow-hidden glimpse-item aspect-video">
+                        <img src="pathshala image 1.png" alt="Wide view of seating arrangement" class="w-full h-full object-cover">
+                    </div>
+                
+                    <div class="rounded-2xl h-full bg-gradient-to-br from-purple-600 to-indigo-800 glimpse-item">
+                    </div>
+                
+                    <div class="rounded-2xl h-full bg-gradient-to-tr from-amber-500 to-orange-700 glimpse-item">
+                    </div>
+                    
+                    <div class="col-span-2 rounded-2xl overflow-hidden glimpse-item aspect-video">
+                        <img src="pathshala image 2.png" alt="Overall library view" class="w-full h-full object-cover">
+                    </div>
+                
+                </div>
+        
             </div>
         </section>
 
@@ -257,7 +278,7 @@
 
 
         <!-- Features Section Wrapper -->
-        <div id="features-wrapper" class="relative min-h-screen bg-[#0a0a0a]">
+        <div id="features-wrapper" class="relative min-h-screen">
             <!-- Feature 1: High-Speed WiFi -->
             <section id="feature-wifi" class="h-screen flex items-center justify-center p-4 absolute inset-0 z-10">
                 <div class="text-center max-w-2xl">
@@ -765,9 +786,20 @@
         // Initial fetch on page load (for English)
         displayCurrentAffairs('English');
     
+        // Glimpse section fade-up animation
+        gsap.from(".glimpse-item", {
+            scrollTrigger: {
+                trigger: "#glimpse",
+                start: "top 80%", // Animation starts when the top of the section is 80% down the viewport
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            stagger: 0.2, // Adds a small delay between each item animating in
+            ease: "power3.out",
+        });
         });
     </script>
 
 </body>
 </html>
-
