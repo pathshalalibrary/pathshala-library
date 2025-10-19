@@ -440,10 +440,20 @@
         }
         
         function onWindowResize() {
-            // Simplified to only resize particle canvas
+            // Resize particle canvas
             particleCanvas.width = innerWidth;
             particleCanvas.height = innerHeight;
+
+            // Re-initialize the particles for new size
             initParticles();
+
+            // Re-draw the particles based on screen size
+            if (window.innerWidth <= 768) {
+                // On mobile, we MUST re-draw them statically
+                drawStaticParticles();
+            }
+            // (On desktop, the 'animateParticles' loop is already running,
+            // so it will pick up the new particles automatically)
         }
         
         window.addEventListener('resize', onWindowResize, false);
@@ -594,3 +604,4 @@
 
     </body>
 </html>
+
